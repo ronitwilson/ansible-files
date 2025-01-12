@@ -1,0 +1,22 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Run the apt get update
+      apt:
+        update_cache: yes
+
+    - name: Install {{ item }} Package
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - openjdk-17-jdk
+        - tomcat9
+        - tomcat9-admin
+
+    - name: Start the Tomcat Service
+      service:
+        name: tomcat9
+        state: started
+        enabled: yes
