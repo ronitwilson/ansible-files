@@ -1,0 +1,2 @@
+ansible webservers -m ping
+ansible-playbook tomcat-10-playbook.yml

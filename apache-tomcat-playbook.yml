@@ -12,11 +12,19 @@
         state: present
       loop:
         - openjdk-17-jdk
-        - tomcat9
-        - tomcat9-admin
+        - tomcat10
+        - tomcat10-admin
 
     - name: Start the Tomcat Service
       service:
-        name: tomcat9
+        name: tomcat10
         state: started
         enabled: yes
+
+    - name: Create Tomcat Users XML
+      copy: 
+       src: tomcat-users.txt
+       dest: /etc/tomcat10/tomcat-users.xml
+       owner: root
+       group: tomcat
+       remote_src: no
