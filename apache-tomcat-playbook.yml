@@ -22,9 +22,16 @@
         enabled: yes
 
     - name: Create Tomcat Users XML
-      copy: 
-       src: tomcat-users.txt
+      template: 
+       src: tomcat-users.j2
        dest: /etc/tomcat10/tomcat-users.xml
        owner: root
        group: tomcat
        remote_src: no
+
+    - name: Copy WAR file
+      get_url:
+        url: https://tomcat.apache.org/tomcat-10.0-doc/appdev/sample/sample.war
+        dest: /var/lib/tomcat10/webapps/sample.war
+        owner: tomcat
+        group: tomcat
