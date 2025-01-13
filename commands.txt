@@ -1,3 +1,0 @@
-ansible webservers -m ping
-ansible-playbook tomcat-10-playbook.yml
-ansible-playbook tomcat-10-playbook.yml -e tomcat_user=tomcat -e tomcat_password=password
