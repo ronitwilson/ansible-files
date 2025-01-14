@@ -32,3 +32,31 @@ also ``` when: OS == "Ubuntu" ```where os can be set as environment variable wit
 ```
 ansible-playbook main.yml -b
 ```
+
+We can use put these roles in a common roles folder ~/.ansible/roles ?
+
+# Ansible vault
+Encrypt the file using ansible-vault
+encrypted by using a password
+![ansible_vault_commands](./screenshots/ansible-vault.png)
+
+```
+ansible-play ask-vault-password
+```
+
+# Ansible dynamic inventory
+a way to dynamically to load the hosts
+
+# Have seperate yml to make yml files smaller
+We can have under tasks folder of the respective role we can have debian.yml and cent.yml
+
+then in main.yml inside the tasks folder  like this 
+``` 
+- name: Run Ubuntu Tomcat Installation
+  include_tasks: debian.yml
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Run CentOS Tomcat Installation
+  include_tasks: centos.yml
+  when: ansible_facts['distribution'] == "RedHat/CentOS"
+```
