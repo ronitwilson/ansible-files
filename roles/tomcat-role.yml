@@ -1,0 +1,32 @@
+- name: Run the apt get update
+  apt:
+    update_cache: yes
+
+- name: Install {{ item }} Package
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - tomcat10
+    - tomcat10-admin
+
+- name: Start the Tomcat Service
+  service:
+    name: tomcat10
+    state: started
+    enabled: yes
+
+- name: Create Tomcat Users XML
+  template: 
+    src: tomcat-users.j2
+    dest: /etc/tomcat10/tomcat-users.xml
+    owner: root
+    group: tomcat
+    remote_src: no
+
+- name: Copy WAR file
+  copy:
+    src: sample.war
+    dest: /var/lib/tomcat10/webapps/sample.war
+    owner: tomcat
+    group: tomcat

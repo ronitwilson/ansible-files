@@ -1,0 +1,26 @@
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Install {{ item }} Package
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "openjdk-11-jdk"
+  when: ansible_facts['distribution'] == "Ubuntu"
+
+- name: Run the equivalent of "yum update" as a separate step
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_facts['distribution'] == "RedHat/CentOS"
+
+- name: Install {{ item }} Package
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "java-11-openjdk-devel"
+  when: ansible_facts['distribution'] == "RedHat/CentOS"
