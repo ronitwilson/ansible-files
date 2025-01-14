@@ -25,3 +25,10 @@ user roles in the main.yml
 ```
 another example ``` when: ansible_facts['ansible_distribution'] == "Ubuntu" ``` 
 also ``` when: OS == "Ubuntu" ```where os can be set as environment variable with "-e"
+
+![example for code as role](./screenshots/image.png)
+
+## run command with sudo as defualt
+```
+ansible-playbook main.yml -b
+```
