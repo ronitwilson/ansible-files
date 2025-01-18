@@ -1,0 +1,12 @@
+server {
+    listen {{ app_port }};
+    server_name {{ app_domain }}
+
+    root /var/www/html/sample_app
+    index index.html
+
+    location / {
+        try_files $uri $uri/ = 404;
+    }
+
+}

@@ -1,0 +1,29 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Run the apt get update
+      apt:
+        update_cache: yes
+
+    - name: install nginx
+      apt:
+        name: nginx
+        state: present
+    
+    - name: Start the Nginx Service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create symlink
+      file:
+        src: /etc/nginx/sites-available/sample_app
+        dest: /etc/nginx/sites-enabled/sample_app
+        state: link
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted

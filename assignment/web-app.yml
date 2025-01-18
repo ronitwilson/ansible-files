@@ -1,0 +1,23 @@
+---
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Create a directory
+      file:
+        path: /var/www/html/sample_app
+        state: directory
+
+    - name: copy file web app file
+     copy:
+       src: ./files/index.html
+       dest: /var/www/html/sample_app/index.html
+       remote_src: no
+
+    - name: create server block configuration
+      template:
+        src: ./files/nginx.conf.j2
+        dest: /etc/nginx/sites-available/sample_app
+        owner: root
+        group: root
+        mode: 0644
+        remote_src: no
